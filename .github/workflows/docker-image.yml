@@ -7,6 +7,7 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -27,4 +28,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ghcr.io/${{ github.actor }}/synapse_s3:latest
+          tags: ghcr.io/jklm23/synapse_s3:latest
