@@ -1,10 +1,24 @@
 FROM matrixdotorg/synapse:latest
 
-RUN apt -y update \
-    && apt -y upgrade \
-    && apt -y install g++ libffi-dev git python3-dev python3-pip
-RUN pip install --upgrade pip
-RUN git clone https://github.com/iokiwi/synapse-swift-storage-provider.git
-RUN cd /synapse-swift-storage-provider
-RUN pip install .
-RUN pip3 install git+https://github.com/matrix-org/synapse-s3-storage-provider.git
+# COPY synapse-swift-storage-provider /synapse-swift-storage-provider
+
+RUN apk update && \
+    apk add --no-cache \
+      g++ \
+      libffi-dev \
+      git \
+      python3-dev && \
+    pip install --upgrade pip && \
+    git clone https://github.com/iokiwi/synapse-swift-storage-provider.git && \
+    cd /synapse-swift-storage-provider && \
+    pip install . && \
+    mkdir -p  /root/.config/openstack && \
+    apk del \
+        git \
+        g++ \
+        libffi-dev \
+        python3-dev && \
+    rm -rf /var/cache/apk/* && \
+    rm -rf /tmp/*
+
+# COPY clouds.yaml /root/.config/openstack/
