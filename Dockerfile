@@ -1,10 +1,3 @@
 FROM matrixdotorg/synapse:latest
 
-RUN apt -y update \
-    && apt -y upgrade \
-    && apt -y install g++ libffi-dev git python3-dev python3-pip \
-    && pip install --upgrade pip \
-    && git clone https://github.com/iokiwi/synapse-swift-storage-provider.git \
-    && cd /synapse-swift-storage-provider \
-    && pip3 install . \
-    && pip3 install git+https://github.com/matrix-org/synapse-s3-storage-provider.git
+RUN pip install synapse-s3-storage-provider
